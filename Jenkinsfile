@@ -9,27 +9,27 @@ pipeline {
     stages {
         stage('Clone Repository') {
             steps {
-                git 'https://github.com/Pavan-sarvepalli/my-app.git' // Replace with your repo
+                git branch: 'main', url: 'https://github.com/Pavan-sarvepalli/my-app.git'
             }
         }
 
         stage('Install Dependencies') {
             steps {
-                sh 'npm install'
+                bat 'npm install'
             }
         }
 
         stage('Build Docker Image') {
             steps {
-                sh 'docker build -t $IMAGE_NAME:$IMAGE_TAG .'
+                bat 'docker build -t %IMAGE_NAME%:%IMAGE_TAG% .'
             }
         }
 
         stage('Run Docker Container') {
             steps {
-                sh '''
-                    docker rm -f my-app-container || true
-                    docker run -d -p 3000:3000 --name my-app-container $IMAGE_NAME:$IMAGE_TAG
+                bat '''
+                    docker rm -f my-app-container || echo Container not running
+                    docker run -d -p 3000:3000 --name my-app-container %IMAGE_NAME%:%IMAGE_TAG%
                 '''
             }
         }
