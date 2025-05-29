@@ -9,7 +9,7 @@ pipeline {
     stages {
         stage('Clone Repository') {
             steps {
-                git 'https://github.com/your-username/my-app.git' // Replace with your repo
+                git 'https://github.com/Pavan-sarvepalli/my-app.git' // Replace with your repo
             }
         }
 
